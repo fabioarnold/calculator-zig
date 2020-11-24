@@ -239,10 +239,6 @@ pub const Application = struct {
     }
 };
 
-pub fn makePoint(x: i32, y: i32) Point(f32) {
-    return Point(f32){ .x = @intToFloat(f32, x), .y = @intToFloat(f32, y) };
-}
-
 pub const Button = struct {
     widget: Widget,
     rect: Rect(f32),
@@ -267,7 +263,8 @@ pub const Button = struct {
 
     fn onMouseMove(widget: *Widget, event: *const MouseEvent) void {
         const self = @fieldParentPtr(Button, "widget", widget);
-        self.hovered = self.rect.contains(makePoint(event.x, event.y));
+        const point = Point(f32).make(@intToFloat(f32, event.x), @intToFloat(f32, event.y));
+        self.hovered = self.rect.contains(point);
     }
 
     fn onMouseDown(widget: *Widget, event: *const MouseEvent) void {
