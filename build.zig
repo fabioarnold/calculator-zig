@@ -15,6 +15,7 @@ pub fn build(b: *Builder) !void {
         }
         exe.subsystem = .Windows;
         exe.linkSystemLibrary("Shell32");
+        exe.addObjectFile("calculator.o");
     }
     exe.addIncludeDir("lib/nanovg/src");
     exe.addCSourceFile("src/c/nanovg_gl2_impl.c", &[_][]const u8{ "-std=c99", "-D_CRT_SECURE_NO_WARNINGS", "-Ilib/gl2/include" });
